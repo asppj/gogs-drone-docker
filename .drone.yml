@@ -1,11 +1,10 @@
-
 kind: pipeline
-name: build
+type: docker
+name: default
 
 steps:
-    - name: build
-      image: busybox  
-      command:
-        - pwd && ls -al
-        - echo $password
-        - curl -X GET -d 123 http://baidu.com 
+- name: greeting
+  image: alpine
+  commands:
+  - echo hello
+  - echo world
