@@ -3,8 +3,76 @@ type: docker # exec, ssh ,kubernetes
 name: default
 
 steps:
-- name: greeting
+- name: greeting0
   image: alpine
   commands:
   - echo hello
   - echo world
+
+---
+kind: pipeline
+type: exec
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: greeting1
+  commands:
+  - echo hello world
+
+---
+kind: pipeline
+type: ssh
+name: default
+
+server:
+  host: ww.asppj.top
+  user: root
+  password:
+    from_secret: password
+
+steps:
+- name: greeting2
+  commands:
+  - echo hello world
+---
+kind: pipeline
+type: docker
+name: backend
+
+steps:
+- name: build
+  image: golang
+  commands:
+  - go build
+  - go test
+
+---
+kind: pipeline
+type: docker
+name: frontend
+
+steps:
+- name: build
+  image: node
+  commands:
+  - npm install
+  - npm test
+
+---
+kind: pipeline
+name: after
+
+steps:
+- name: notify
+  image: plugins/slack
+  settings:
+    room: general
+    webhook: https://www.baidu.com
+
+depends_on:
+- backend
+- frontend
