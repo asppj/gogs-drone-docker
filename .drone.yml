@@ -1,0 +1,7 @@
+pipeline:
+  webhook:
+    image: busybox  # 直接用busybox
+    command:
+      - pwd && ls -al
+      - echo $password
+      - curl -X GET -d 123 http://baidu.com 
