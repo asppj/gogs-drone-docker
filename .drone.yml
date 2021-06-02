@@ -1,7 +1,11 @@
-pipeline:
-  webhook:
-    image: busybox  # 直接用busybox
+
+kind: pipeline
+name: build
+
+steps:
+- name: build
+    image: busybox  
     command:
-      - pwd && ls -al
-      - echo $password
-      - curl -X GET -d 123 http://baidu.com 
+    - pwd && ls -al
+    - echo $password
+    - curl -X GET -d 123 http://baidu.com 
