@@ -5,9 +5,22 @@ name: default
 steps:
 - name: greeting0
   image: alpine
+  settings:
+    repo: octocat/hello-world
+    username:
+      from_secret: password
+    password:
+      from_secret: password
+  environment:
+    USERNAME:
+      from_secret: password
+    PASSWORD:
+      from_secret: password
   commands:
   - echo hello
   - echo world
+  - echo $USERNAME
+  - ls -al
 
 ---
 kind: pipeline
@@ -38,6 +51,7 @@ steps:
 - name: greeting2
   commands:
   - echo hello world
+
 ---
 kind: pipeline
 type: docker
