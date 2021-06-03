@@ -18,14 +18,14 @@ steps:
         from_secret: password
     commands:
       - echo hello
-        echo world
-        echo $USERNAME
-        ls -al
+      - echo world
+      - echo $USERNAME
+      - ls -al
   - name: build
     image: golang
     commands:
       - go env
-        go version
+      - go version
 # ---
 # kind: pipeline
 # type: exec
